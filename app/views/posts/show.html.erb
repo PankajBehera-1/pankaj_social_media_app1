@@ -1,0 +1,41 @@
+
+<%# <h2><%= @post.user.username %></h2> 
+<p><%= @post.content %></p>
+<p>Posted at: <%= @post.created_at.strftime('%B %d, %Y %I:%M %p') %></p>
+
+<% if user_signed_in? %>
+  <%= form_with(model: [@post, Comment.new], url: post_comments_path(@post), local: true) do |form| %>
+    <%= form.text_area :content, placeholder: 'Add a comment...', rows: 2 %>
+    <%= form.submit 'Comment' %>
+  <% end %>
+<% else %>
+  <p>Please sign in to comment.</p>
+<% end %>
+
+
+<br>
+<% if @post.user == current_user %>
+    <%= form_for(@post, :html => { :method => :delete, :remote => true, data: { confirm: "Are you sure?"} }) do |f| %>
+        <%= f.submit :value => "Delete post" %>
+    <% end %>
+<% end %>
+<br>
+
+<p><%= @post.likes.count %> <%= (@post.likes.count) == 1 ? 'Like' : 'Likes' %></p>
+
+<%pre_like = @post.likes.find { |like| like.user_id == current_user.id} %>
+
+<% if pre_like %>
+    <%= button_to 'unlike', post_like_path(@post ,pre_like), method: :delete %>
+<%else%>
+    <%= button_to 'like', post_like_path(@post), method: :post %>
+<% end %>
+<br>
+
+
+<%= link_to 'Edit', edit_post_path(@post) %>
+<br>
+<%= link_to 'Back', posts_path %>
+
+
+

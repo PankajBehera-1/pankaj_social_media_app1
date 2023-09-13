@@ -1,0 +1,13 @@
+<!-- app/views/posts/_post.html.erb -->
+<div class="post">
+  <h3><%= post.user.username %></h3>
+  <p><%= post.content %></p>
+  <h3><p>Posted on: <%= post.created_at.in_time_zone('Asia/Kolkata').strftime('%B %d, %Y %I:%M %p %Z') %></p></h3>
+  <h3>Comments:</h3>
+    <ul>
+        <% post.comments.each do |comment| %>
+          <li> <p><strong><%= comment.user.email %></strong>:</strong> <%= comment.content %></p></li>
+        <% end %>
+    </ul>
+</div>
+

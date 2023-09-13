@@ -1,0 +1,39 @@
+<h1>social media</h1>
+
+<% if user_signed_in? %>
+  <p>Logged in as: <%= current_user.email %></p>
+  <%= button_to 'Signout', destroy_user_session_path, method: :delete, form: {turbolink: false} %>
+<% else %>
+  <p>You are not logged in.</p>
+<% end %>
+
+<%= link_to ' Create post', new_post_path %>
+
+<ol>
+  <% @posts.each do |post| %>
+    <li>
+      <p><strong><%= post.user.username %></strong></p>
+      <p><%= post.user.email %></p>
+      <h1><%= link_to post.content, post_path(post) %></h1>
+      <%= render 'post', post: post %>
+
+
+      <% unless current_user == @user %>
+        <% if current_user.following?(@user) %>
+          <%= link_to 'Unfollow', friendship_path(@user), method: :delete %>
+        <% else %>
+          <%= link_to 'Follow', friendships_path(friend_id: @user), method: :post %>
+        <% end %>
+      <% end %>
+      
+      <% if post.liking_users.any? %>
+        <h3>Liking Users:</h3>
+        <ul>
+          <% post.liking_users.each do |user| %>
+            <li><%= user.name %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </li>  
+  <% end %>
+</ol>
