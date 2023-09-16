@@ -1,21 +1,142 @@
-<%= form_with(model: @post, local: true) do |form| %>
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@post.errors.count, 'error') %> prohibited this post from being saved:</h2>
-      <ul>
-        <% @post.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content, rows: 4 %>
+
+  <div class="post-container">
+    <div class="circle-1"></div>
+    <div class="circle-2"> </div> 
+
+    <%= form_with(model: @post, local: true) do |form| %>
+      <% if @post.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@post.errors.count, 'error') %> prohibited this post from being saved:</h2>
+          <ul>
+            <% @post.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= form.label :content %>
+        <%= form.text_area :content, rows: 4 %>
+      </div>
+
+      <div class="field">
+        <%= form.label :image %>
+        <%= form.file_field :image %>
+      </div>
+          
+      <div class="field">
+        <%= form.label :video %>
+        <%= form.file_field :video %>
+      </div>
+          
+
+      <div class="actions">
+        <%= form.submit 'Save' %>
+      </div>
+    <% end %>
   </div>
 
-  <div class="actions">
-    <%= form.submit 'Save' %>
-  </div>
-<% end %>
+
+<style>
+ 
+  input[type="submit"]
+  {
+    background-color: #1EFF1E;
+    padding: 9px 0;
+    margin: 20px;
+    width: 85%;
+    border-radius: 5px;
+    text-align: center;
+    color: #000;
+    font-family: verdana;
+    font-size: 17px;
+    text-decoration: none;
+    transition: background .3s;
+  }
+  
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #98AFC7;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #ffffff;
+  backdrop-filter: blur(50px);
+
+}
+
+.post-container {
+  
+  background-color: #ffffff21;
+  border: 1px solid #ffffff2e;
+  border-radius: 10px;
+  
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 400px;
+}
+.circle-1, .circle-2 {
+  position: absolute;
+  height: 135px;
+  width: 135px;
+  background: red;
+  border-radius: 50%;
+  z-index: -99;
+  
+}
+.circle-1 {
+  transform: translate(-100px,-100px);
+  background: linear-gradient(45deg, #ff00d45b, #ff00ea);
+}
+.circle-2 {
+  transform: translate(353px,310px);
+  background: linear-gradient(45deg, #0cd3d377, aqua) ;
+}
+
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input,
+textarea {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 380px;
+  
+}
+
+.post-button {
+  background-color: #000000;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.post-button:hover {
+  background-color: #254685;
+}
+</style>

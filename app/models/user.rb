@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  validates :username, presence: true
+  # validates :username, presence: true
   has_many :posts
   has_many :comments
 
@@ -14,8 +14,9 @@ class User < ApplicationRecord
   has_many :friendships, dependent: :destroy
   has_many :followers, through: :friendships
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id', dependent: :destroy
-has_many :following, through: :inverse_friendships, source: :friend 
-
+  has_many :following, through: :inverse_friendships, source: :friend 
+  has_one_attached :avatar
+  mount_uploader :avatar, AvatarUploader
   def follow(user)
     friendships.create(friend: user)
   end

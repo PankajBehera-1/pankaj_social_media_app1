@@ -1,4 +1,47 @@
 <!-- app/views/posts/new.html.erb -->
-<h1>New Post</h1>
-<%= render 'form' %>
-<%= link_to 'Back', posts_path %>
+<div class="h2">
+  <h1 style="color: #ffffff;;text-align:center;font-size:60px">New Post</h1>
+
+  <%= render 'form' %><br>
+
+  <div class="main_btn"><%= link_to 'Back', posts_path %></div>
+</div>
+<Style>
+
+.main_btn {
+    position: relative;
+    height: 30px;
+    width: 90px;
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    outline: 1px solid #fff;
+    text-transform: capitalize;
+    border-radius: 4px;
+    transition: 1s ease;
+    text-align: center;
+    
+}
+.main_btn:hover {
+    background-color: #fff;
+    color: #000;
+    font-weight: bolder;
+}
+.main_btn::before {
+    content: "";
+    position: absolute;
+    height: 40px;
+    width: 90px;
+    background-color: transparent;
+    top: 80%;
+    left: 0;
+    transform: perspective(1em) 
+    rotateX(40deg) scale(1, 0.35);
+    transition: 1s ease;
+    filter: blur(1em);
+}
+.main_btn:hover::before {
+    top: 120%;
+    background-color: #fff;
+}
+</style>

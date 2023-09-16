@@ -1,22 +1,113 @@
-<h1>social media</h1>
+
+<style type="text/css">
+		*{
+			text-decoration: none;
+    
+		}
+		.navbar{
+			background: crimson; font-family: calibri; padding-right: 15px; padding-left: 15px;
+		}
+		.navdiv{
+			display: flex; align-items: center; justify-content: space-between;
+		}
+		.logo a{
+			font-size: 35px; font-weight: 600; color: white;
+		}
+		li{
+			list-style: none; display: inline-block;
+		}
+		li a{
+			color: white; font-size: 18px; font-weight: bold; margin-right: 25px;
+		}
+		button{
+			background-color: black; margin-left: 10px; border-radius: 10px; padding: 10px; width: 90px; 
+		}
+		button a{
+			color: white; font-weight: bold; font-size: 15px;
+		}
+
+    .post-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      flex: 4;
+      /* background-image: url('https://img.freepik.com/free-vector/social-media-icons_53876-89125.jpg?size=626&ext=jpg&ga=GA1.1.128079093.1690178578&semt=ais'); 
+      background-size: cover;  */
+      }
+
+        /* Style the post header */
+      .post-header {
+        display: flex;
+        align-items: center;
+      }
+      /* Default style for avatars without an image */
+      .default-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+      }
+      .post {
+        display: flex;
+        flex-wrap: wrap;
+        background-color: #728FCE;
+        border-redius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        
+      }
+	</style>
+</head>
+<body>
+	<nav class="navbar">
+		<div class="navdiv">
+			<div class="logo"><a href="#">SOCIALBOOK</a> </div>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Contact</a></li>
+				<button><a href="#">SignIn</a></button>
+				<button><a href="#">SignUp</a></button>
+			</ul>
+		</div>
+	</nav>
+</body>
+</html>
+
 
 <% if user_signed_in? %>
   <p>Logged in as: <%= current_user.email %></p>
   <%= button_to 'Signout', destroy_user_session_path, method: :delete, form: {turbolink: false} %>
+  
 <% else %>
   <p>You are not logged in.</p>
 <% end %>
 
 <%= link_to ' Create post', new_post_path %>
 
-<ol>
+
   <% @posts.each do |post| %>
-    <li>
-      <p><strong><%= post.user.username %></strong></p>
-      <p><%= post.user.email %></p>
+    <div class="post-container">
+      <div class="post">
+        <p><strong><%= post.user.username %></strong></p>
+        <% if post.user.avatar? %>
+          <%= image_tag post.user.avatar.url, class: "avatar" %>
+        <% else %>
+          <div class="default-avatar"><img src="https://www.pngarts.com/files/11/Avatar-PNG-Picture.png" alt="default-avatar" class="default-avatar"></div>
+        <% end %>
+        <p><%= post.user.email %></p>
+      </div>
       <h1><%= link_to post.content, post_path(post) %></h1>
       <%= render 'post', post: post %>
-
+        
 
       <% unless current_user == @user %>
         <% if current_user.following?(@user) %>
@@ -26,6 +117,7 @@
         <% end %>
       <% end %>
       
+        
       <% if post.liking_users.any? %>
         <h3>Liking Users:</h3>
         <ul>
@@ -34,6 +126,8 @@
           <% end %>
         </ul>
       <% end %>
-    </li>  
+    </div>
+    
   <% end %>
-</ol>
+
+

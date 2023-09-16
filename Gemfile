@@ -72,3 +72,7 @@ group :test do
 end
 # Gemfile
 gem 'devise'
+
+gem 'carrierwave'
+
+gem 'cloudinary'

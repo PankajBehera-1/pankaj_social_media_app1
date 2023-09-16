@@ -1,8 +1,18 @@
 <!-- app/views/posts/_post.html.erb -->
-<div class="post">
+<div class="post-container">
   <h3><%= post.user.username %></h3>
   <p><%= post.content %></p>
   <h3><p>Posted on: <%= post.created_at.in_time_zone('Asia/Kolkata').strftime('%B %d, %Y %I:%M %p %Z') %></p></h3>
+
+  <% if post.image.present? %>
+    <%= image_tag post.image.url ,width: "30%" %>
+  <% end %>
+
+  <% if post.video.present? %>
+    <video controls , width="30%">
+    <source src="<%= post.video.url %>" type="video/mp4">
+    </video>
+  <% end %>
   <h3>Comments:</h3>
     <ul>
         <% post.comments.each do |comment| %>

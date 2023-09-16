@@ -1,50 +1,137 @@
-<h2>Sign up</h2>
+<div class="form">
+  <div class="login-box">
+  <%# <h1>Sign up</h1> %>
+  <img src="https://tse1.mm.bing.net/th?id=OIP.sYKmO23D9gxcd-2ThzxTZAHaIe&pid=Api&P=0&h=180">
+  <div class="login-box">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <%= f.label :avatar, 'Upload Avatar' %><br>
+      <%= f.file_field :avatar %>
+      <div class="field">
+        <%= f.label :username %><br />
+        <%= f.text_field :username, autofocus: true %>
+      </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true %>
-  </div>
+      <%= f.label :date_of_birth %><br>
+      <%= f.date_field :date_of_birth, class: 'form-control' %>
+          <br>
+      <%= f.label :gender %>
+      <%= f.select :gender, ['Male', 'Female', 'Other'], {}, class: 'form-control' %>
+        
+      <div class="form-group">
+        <%= f.label :country, 'Country' %>
+        <%= f.select :country, ['india', 'uk', 'japan','pakistan'], {}, class: 'form-control' %>
+      </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+      <div class="form-group">
+        <%= f.label :phone, 'Phone Number' %><br>
+        <%= f.text_field :phone, class: 'form-control' %>
+      </div>
 
-  <%= f.label :date_of_birth %>
-  <%= f.date_field :date_of_birth, class: 'form-control' %>
-      <br>
-  <%= f.label :gender %>
-  <%= f.select :gender, ['Male', 'Female', 'Other'], {}, class: 'form-control' %>
-    
-  <div class="form-group">
-    <%= f.label :country, 'Country' %>
-    <%= f.select :country, ['india', 'uk', 'japan','pakistan'], {}, class: 'form-control' %>
-  </div>
+      <div class="field">
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password" %>
+      </div>
 
-  <div class="form-group">
-    <%= f.label :phone, 'Phone Number' %>
-    <%= f.text_field :phone, class: 'form-control' %>
-  </div>
+      <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+    </div>
+     <button class="login-button actions">
+        Sign up
+    </button>
+  <% end %>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+  <%= render "devise/shared/links" %>
+</div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+<style>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+.form {
+    width: 370px;
+    height: 550px;
+    background: #ffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px green;
+    border: 1px solid #ffffff36;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    padding: 2px;
+}
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  background-color: grey;
+ 
 
-<%= render "devise/shared/links" %>
+
+.login-container {
+  background-color: #7D0541;
+  color: #ffffff; /* White font color */
+  border-radius: 10px;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  width: 300px;
+  position: relative;
+  
+}
+
+.login-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+input {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-button {
+  background-color: #000000;
+  color: #fff;
+  border: none;
+  padding: 10px 80px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.login-button:hover {
+  background-color: #254685;
+}
+
+.login-container:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, #3366cc, #ff9900);
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+  z-index: -1;
+}
+
+</style>

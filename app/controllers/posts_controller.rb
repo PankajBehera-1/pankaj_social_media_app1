@@ -20,10 +20,11 @@ class PostsController < ApplicationController
   
     def create
       @post = current_user.posts.build(post_params)
+      
       if @post.save
         redirect_to @post, notice: 'Post was successfully created.'
       else
-        render 'new'
+        render :new
       end
     end
   
@@ -55,7 +56,8 @@ class PostsController < ApplicationController
     private
   
     def post_params
-      params.require(:post).permit(:content)
+      params.require(:post).permit(:content, :image, :video, :avatar)
+  
     end
 
     def like
@@ -70,6 +72,17 @@ class PostsController < ApplicationController
   def find_post
     @post = Post.find(params[:id])
   end
+
+
+  def store
+    # upload image to cloudinary
+    @image = Cloudinary::Uploader.upload(params[:media])
+    # create a new post object and save to db
+    @post = Post.new({:content => params[:content], :text => params[:text], :author => params[:author],  :media => @image['secure_url']})
+    @post.save
+    redirect_to('/')
+end
+
 end
   
 
