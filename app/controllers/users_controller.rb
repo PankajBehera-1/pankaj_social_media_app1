@@ -1,4 +1,11 @@
 class UsersController < ApplicationController
+
+
+    def new
+        @user = User.new
+    end
+
+   
     def like(post)
         post_interactions.create(post: post, reaction: 'like')
     end

@@ -76,3 +76,5 @@ gem 'devise'
 gem 'carrierwave'
 
 gem 'cloudinary'
+
+ gem 'pry'
