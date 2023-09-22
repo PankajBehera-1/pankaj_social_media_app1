@@ -27,6 +27,7 @@ class UsersController < ApplicationController
         @current_user.followees << @user
         redirect_to user_path(@user)
     end
+    
     def unfollow
         @user = User.find(params[:id])
         @current_user.followed_users.find_by(followee_id: @user.id).destroy

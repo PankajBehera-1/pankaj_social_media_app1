@@ -1,11 +1,12 @@
-<!-- app/views/posts/_post.html.erb -->
-<div class="post-container">
+
   <h3><%= post.user.username %></h3>
-  <p><%= post.content %></p>
+ 
   <h3><p>Posted on: <%= post.created_at.in_time_zone('Asia/Kolkata').strftime('%B %d, %Y %I:%M %p %Z') %></p></h3>
 
   <% if post.image.present? %>
-    <%= image_tag post.image.url ,width: "30%" %>
+    <div class="card">
+      <%= image_tag post.image.url ,width: "100%" %>
+    </div>
   <% end %>
 
   <% if post.video.present? %>
@@ -19,5 +20,13 @@
           <li> <p><strong><%= comment.user.email %></strong>:</strong> <%= comment.content %></p></li>
         <% end %>
     </ul>
-</div>
+    <% if post.liking_users.any? %>
+      <h3>Liking Users:</h3>
+      <ul>
+        <% post.liking_users.each do |user| %>
+          <li><%= user.email %></li><br>
+          <% end %>
+      </ul>
+    <% end %>
+
 

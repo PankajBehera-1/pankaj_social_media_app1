@@ -4,6 +4,24 @@
 			text-decoration: none;
     
 		}
+    body {
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #f5f5f5;
+    }
+
+    .card {
+    position: relative;
+    width: 325px;
+    height: 215px;
+    background: #000;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+
+    }
 		.navbar{
 			background: crimson; font-family: calibri; padding-right: 15px; padding-left: 15px;
 		}
@@ -19,13 +37,13 @@
 		li a{
 			color: white; font-size: 18px; font-weight: bold; margin-right: 25px;
 		}
-		button{
-			background-color: black; margin-left: 10px; border-radius: 10px; padding: 10px; width: 90px; 
-		}
-		button a{
-			color: white; font-weight: bold; font-size: 15px;
-		}
-
+		
+    .side{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 10vh;
+    }
     .post-container {
       max-width: 600px;
       margin: 0 auto;
@@ -59,11 +77,12 @@
         display: flex;
         flex-wrap: wrap;
         background-color: #728FCE;
-        border-redius: 10px;
+        border-redius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         padding: 10px;
         
       }
+      
 	</style>
 </head>
 <body>
@@ -74,8 +93,13 @@
 				<li><a href="#">Home</a></li>
 				<li><a href="#">About</a></li>
 				<li><a href="#">Contact</a></li>
-				<button><a href="#">SignIn</a></button>
-				<button><a href="#">SignUp</a></button>
+				<li>
+        <% if user_signed_in? %>
+          <%= button_to 'Signout', destroy_user_session_path, method: :delete, form: {turbolink: false} %>
+        <% else %>
+          <p>You are not logged in.</p>
+        <% end %>
+        </li>
 			</ul>
 		</div>
 	</nav>
@@ -85,8 +109,6 @@
 
 <% if user_signed_in? %>
   <p>Logged in as: <%= current_user.email %></p>
-  <%= button_to 'Signout', destroy_user_session_path, method: :delete, form: {turbolink: false} %>
-  
 <% else %>
   <p>You are not logged in.</p>
 <% end %>
@@ -95,37 +117,31 @@
 
 
   <% @posts.each do |post| %>
-    <div class="post-container">
-      <div class="post">
-        <p><strong><%= post.user.username %></strong></p>
-        <% if post.user.avatar? %>
-          <%= image_tag post.user.avatar.url, class: "avatar" %>
-        <% else %>
-          <div class="default-avatar"><img src="https://www.pngarts.com/files/11/Avatar-PNG-Picture.png" alt="default-avatar" class="default-avatar"></div>
-        <% end %>
-        <p><%= post.user.email %></p>
-      </div>
-      <h1><%= link_to post.content, post_path(post) %></h1>
-      <%= render 'post', post: post %>
-        
-
-      <% unless current_user == @user %>
-        <% if current_user.following?(@user) %>
-          <%= link_to 'Unfollow', friendship_path(@user), method: :delete %>
-        <% else %>
-          <%= link_to 'Follow', friendships_path(friend_id: @user), method: :post %>
-        <% end %>
-      <% end %>
-      
-        
-      <% if post.liking_users.any? %>
-        <h3>Liking Users:</h3>
-        <ul>
-          <% post.liking_users.each do |user| %>
-            <li><%= user.email %></li>
+    <div class="side">
+      <div class="post-container">
+        <div class="post">
+          <p><strong><%= post.user.username %></strong></p>
+          <% if post.user.avatar? %>
+            <%= image_tag post.user.avatar.url, class: "avatar" %>
+          <% else %>
+            <div class="default-avatar"><img src="https://www.pngarts.com/files/11/Avatar-PNG-Picture.png" alt="default-avatar" class="default-avatar"></div>
           <% end %>
-        </ul>
-      <% end %>
+          <p><%= post.user.email %>.   .   .</p>
+          <br>
+          <p>
+          <% unless current_user == @user %>
+            <% if current_user.following?(@user) %>
+              <%= link_to 'Unfollow', friendship_path(@user), method: :delete %>
+            <% else %>
+              <%= link_to 'Follow', friendships_path(friend_id: @user), method: :post %>
+            <% end %>
+          <% end %>
+          </p>
+        </div>
+        <h1><%= link_to post.content, post_path(post) %></h1>
+        <%= render 'post', post: post %>
+        
+      </div>
     </div>
     
   <% end %>
