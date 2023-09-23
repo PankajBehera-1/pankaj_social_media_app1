@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
 #friendship 
   has_many :friendships, dependent: :destroy
-  has_many :followers, through: :friendships
+  has_many :followers, through: :friendships, source: :friend
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id', dependent: :destroy
   has_many :following, through: :inverse_friendships, source: :friend 
   has_one_attached :avatar
@@ -26,7 +26,7 @@ class User < ApplicationRecord
   end
 
   def following?(user)
-    following.include?(user)
+    followers.include?(user)
   end
 end
 

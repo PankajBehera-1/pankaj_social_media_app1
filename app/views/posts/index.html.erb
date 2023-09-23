@@ -129,11 +129,11 @@
           <p><%= post.user.email %>.   .   .</p>
           <br>
           <p>
-          <% unless current_user == @user %>
-            <% if current_user.following?(@user) %>
-              <%= button_to 'Unfollow', friendship_path(@user), method: :delete %>
+          <% unless current_user == post.user %>
+            <% if current_user.following?(post.user) %>
+              <%= button_to 'Unfollow', friendship_path(post.user.id), method: :delete %>
             <% else %>
-              <%= button_to 'Follow', friendships_path(friend_id: @user), method: :post %>
+              <%= button_to 'Follow', friendships_path(post.user.id), method: :post %>
             <% end %>
           <% end %>
           </p>
