@@ -6,14 +6,14 @@ class FriendshipsController < ApplicationController
     def create
       friend = User.find(params[:friend_id])
       current_user.follow(friend)
-      redirect_to friend, notice: 'You are now following this user.'
+      redirect_to posts_path, notice: 'You are now following this user.'
     end
   
     # Destroy a friendship (unfollow)
     def destroy
       friend = User.find(params[:id])
       current_user.unfollow(friend)
-      redirect_to friend, notice: 'You have unfollowed this user.'
+      redirect_to posts_path, notice: 'You have unfollowed this user.'
     end
   end
   
