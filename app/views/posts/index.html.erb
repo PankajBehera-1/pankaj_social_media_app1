@@ -82,6 +82,27 @@
         padding: 10px;
         
       }
+      .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%; /* Make it round */
+        overflow: hidden; /* Hide overflow if the image is larger */
+        background-color: #ddd; /* Default background color */
+        gap: 10px;
+      }
+      .user-name,
+      .user-email {
+        /* You can adjust the font size, color, and other properties as needed */
+        font-weight: bold;
+      }
+
+      /* Separate the user name and email with a line break */
+      .user-name::after {
+        content: '\A'; /* Use '\A' for a line break in pseudo-element content */
+        white-space: pre; /* Preserve whitespace */
+        display: block; /* Make the line break a block element */
+      }
+
       
 	</style>
 </head>
@@ -120,14 +141,21 @@
     <div class="side">
       <div class="post-container">
         <div class="post">
-          <p><strong><%= post.user.username %></strong></p>
           <% if post.user.avatar? %>
-            <%= image_tag post.user.avatar.url, class: "avatar" %>
+            <div class="avatar">
+              <%= image_tag post.user.avatar.url, class: "avatar" %>
+            </div>
           <% else %>
             <div class="default-avatar"><img src="https://www.pngarts.com/files/11/Avatar-PNG-Picture.png" alt="default-avatar" class="default-avatar"></div>
           <% end %>
-          <p><%= post.user.email %>.   .   .</p>
+          <div class="user-name">
+            <strong><%= post.user.username %></strong>
+          </div>
           <br>
+          <div class="user-name">
+            <%= post.user.email %>
+          </div>
+        
           <p>
           <% unless current_user == post.user %>
             <% if current_user.following?(post.user) %>
