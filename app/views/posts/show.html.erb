@@ -1,42 +1,102 @@
 
-<%# <h2><%= @post.user.username %></h2> 
-<p><%= @post.content %></p>
-<p>Posted at: <%= @post.created_at.strftime('%B %d, %Y %I:%M %p') %></p>
+<div class="post-container">
+  <p><%= @post.content %></p>
+  <p>Posted at: <%= @post.created_at.strftime('%B %d, %Y %I:%M %p') %></p>
 
-<% if user_signed_in? %>
-  <%= form_with(model: [@post, Comment.new], url: post_comments_path(@post), local: true) do |form| %>
-    <%= form.text_area :content, placeholder: 'Add a comment...', rows: 2 %>
-    <%= form.submit 'Comment' %>
-  <% end %>
-<% else %>
-  <p>Please sign in to comment.</p>
-<% end %>
-
-
-<br>
-<% if @post.user == current_user %>
-    <%= form_for(@post, :html => { :method => :delete, :remote => true, data: { confirm: "Are you sure?"} }) do |f| %>
-        <%= f.submit :value => "Delete post" %>
+  <% if user_signed_in? %>
+    <%= form_with(model: [@post, Comment.new], url: post_comments_path(@post), local: true) do |form| %>
+      <%= form.text_area :content, placeholder: 'Add a comment...', rows: 2 %>
+      <%= form.submit 'Comment' %>
     <% end %>
-<% end %>
-<br>
+  <% else %>
+    <p>Please sign in to comment.</p>
+  <% end %>
 
-<p><%= @post.likes.count %> <%= (@post.likes.count) == 1 ? 'Like' : 'Likes' %></p>
 
-<% pre_like = @post.likes.find { |like| like.user_id == current_user.id } %>
+  <br>
 
-<% if pre_like %>
-  <%= button_to 'Unlike', post_like_path(@post, pre_like), method: :delete %>
-<% else %>
-  <%= button_to 'Like', post_likes_path(@post), method: :post %>
-<% end %>
+  <% if @post.user == current_user %>
+      <%= form_for(@post, :html => { :method => :delete, :remote => true, data: { confirm: "Are you sure?"} }) do |f| %>
+          <%= f.submit :value => "Delete post" %>
+      <% end %>
+  <% end %>
+  <br>
 
-<br>
+  <p><%= @post.likes.count %> <%= (@post.likes.count) == 1 ? 'Like' : 'Likes' %></p>
 
+  <% pre_like = @post.likes.find { |like| like.user_id == current_user.id } %>
+
+  <% if pre_like %>
+    <%= button_to 'Unlike', post_like_path(@post, pre_like), method: :delete %>
+  <% else %>
+    <%= button_to 'Like', post_likes_path(@post), method: :post %>
+  <% end %>
+
+  <br>
+</div>
 
 <%= link_to 'Edit', edit_post_path(@post) %>
 <br>
 <%= link_to 'Back', posts_path %>
 
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+  }
+
+  h2 {
+    color: #007bff;
+  }
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  input[type="submit"] {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: blue;
+  }
+  button {
+    display: inline-block;
+    padding: 10px 20px;
+    border: solid;
+    border-radius: 25px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    background-color: red;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+  .post-container {
+      
+      max-width: 400px;
+      margin-left: 500px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      background-image: linear-gradient(120deg,turquoise,	blueviolet);
+      
+</style>
 
 

@@ -13,7 +13,6 @@ class Users::SessionsController < Devise::SessionsController
 
   def destroy
     sign_out(current_user)
-
     redirect_to posts_path, notice: 'logged out successfully !!.'
   end
 end

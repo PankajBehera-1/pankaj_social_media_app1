@@ -9,21 +9,24 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: #f5f5f5;
+    background: linear;
+    margin: 0;
+    background: #778899;
     }
 
     .card {
     position: relative;
     width: 325px;
     height: 215px;
-    background: #000;
+    background: blue;
     border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    position: flex;
 
     }
 		.navbar{
-			background: crimson; font-family: calibri; padding-right: 15px; padding-left: 15px;
+			background: black; font-family: calibri; padding-right: 15px; padding-left: 15px;
 		}
 		.navdiv{
 			display: flex; align-items: center; justify-content: space-between;
@@ -39,23 +42,26 @@
 		}
 		
     .side{
-      display: flex;
+      
       align-items: center;
       justify-content: center;
-      min-height: 10vh;
+      min-height: 30vh;
+      width: 900px;
+      margin-left: 230px;
+      gap: 5px;
     }
+ 
     .post-container {
-      max-width: 600px;
-      margin: 0 auto;
+      
+      max-width: 800px;
+      margin-left: 100px;
       background-color: #f9f9f9;
       border: 1px solid #ddd;
       border-radius: 20px;
-      padding: 20px;
+      padding: 25px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      flex: 4;
-      /* background-image: url('https://img.freepik.com/free-vector/social-media-icons_53876-89125.jpg?size=626&ext=jpg&ga=GA1.1.128079093.1690178578&semt=ais'); 
-      background-size: cover;  */
-      }
+      background-image: linear-gradient(120deg,yellow,tomato,springgreen);
+      
 
         /* Style the post header */
       .post-header {
@@ -76,7 +82,7 @@
       .post {
         display: flex;
         flex-wrap: wrap;
-        background-color: #728FCE;
+        background-color: blue;
         border-redius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         padding: 10px;
@@ -94,6 +100,7 @@
       .user-email {
         /* You can adjust the font size, color, and other properties as needed */
         font-weight: bold;
+         font-size: 18px;
       }
 
       /* Separate the user name and email with a line break */
@@ -102,6 +109,19 @@
         white-space: pre; /* Preserve whitespace */
         display: block; /* Make the line break a block element */
       }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        border: solid;
+        border-radius: 25px;
+        font-size: 22px;
+        font-weight: bold;
+        color: #fff;
+        background-color: red;
+        cursor: pointer;
+        outline: none;
+        transition: background-color 0.3s ease;
+    }
 
       
 	</style>
@@ -133,10 +153,9 @@
 <% else %>
   <p>You are not logged in.</p>
 <% end %>
-
-<%= link_to ' Create post', new_post_path %>
-
-
+<div class="button">
+  <%= link_to 'Create post', new_post_path %>
+</div>
   <% @posts.each do |post| %>
     <div class="side">
       <div class="post-container">
@@ -149,13 +168,13 @@
             <div class="default-avatar"><img src="https://www.pngarts.com/files/11/Avatar-PNG-Picture.png" alt="default-avatar" class="default-avatar"></div>
           <% end %>
           <div class="user-name">
-            <strong><%= post.user.username %></strong>
+            <%= post.user.username %>
           </div>
           <br>
-          <div class="user-name">
-            <%= post.user.email %>
-          </div>
-        
+          
+          <%= post.user.email %>
+          
+          
           <p>
           <% unless current_user == post.user %>
             <% if current_user.following?(post.user) %>
@@ -168,10 +187,11 @@
         </div>
         <h1><%= link_to post.content, post_path(post) %></h1>
         <%= render 'post', post: post %>
-        
+          
       </div>
     </div>
-    
+   
+
   <% end %>
 
 
