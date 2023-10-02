@@ -11,7 +11,7 @@
     min-height: 100vh;
     background: linear;
     margin: 0;
-    background: #778899;
+    background: #2C3E50;
     }
 
     .card {
@@ -60,14 +60,9 @@
       border-radius: 20px;
       padding: 25px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      background-image: linear-gradient(120deg,yellow,tomato,springgreen);
+      background-image: linear-gradient(120deg,white,tomato,springgreen);
       
 
-        /* Style the post header */
-      .post-header {
-        display: flex;
-        align-items: center;
-      }
       /* Default style for avatars without an image */
       .default-avatar {
         width: 50px;
@@ -82,8 +77,9 @@
       .post {
         display: flex;
         flex-wrap: wrap;
-        background-color: blue;
-        border-redius: 5px;
+        border: 3px solid red;
+        background-color: #F0F3F4;
+        border-radius: 15px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         padding: 10px;
         
@@ -109,7 +105,7 @@
         white-space: pre; /* Preserve whitespace */
         display: block; /* Make the line break a block element */
       }
-      .button {
+      button{
         display: inline-block;
         padding: 10px 20px;
         border: solid;
@@ -121,7 +117,7 @@
         cursor: pointer;
         outline: none;
         transition: background-color 0.3s ease;
-    }
+      }
 
       
 	</style>
@@ -131,6 +127,14 @@
 		<div class="navdiv">
 			<div class="logo"><a href="#">SOCIALBOOK</a> </div>
 			<ul>
+        <li> 
+          <% if user_signed_in? %>
+            <p style="color:blue;">Logged in as: <%= current_user.email %></p>
+          <% else %>
+            <p>You are not logged in.</p>
+          <% end %>
+        </li>
+        <li></li>
 				<li><a href="#">Home</a></li>
 				<li><a href="#">About</a></li>
 				<li><a href="#">Contact</a></li>
@@ -148,14 +152,8 @@
 </html>
 
 
-<% if user_signed_in? %>
-  <p>Logged in as: <%= current_user.email %></p>
-<% else %>
-  <p>You are not logged in.</p>
-<% end %>
-<div class="button">
-  <%= link_to 'Create post', new_post_path %>
-</div>
+  <button><%= link_to 'Create post', new_post_path %></button>
+
   <% @posts.each do |post| %>
     <div class="side">
       <div class="post-container">

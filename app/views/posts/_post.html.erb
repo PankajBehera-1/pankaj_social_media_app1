@@ -3,19 +3,18 @@
 
   <% if post.image.present? %>
     <%= image_tag post.image.url ,width: "100%" %>
-    
   <% end %>
 
   <% if post.video.present? %>
-    <video controls , width="30%">
+    <video controls , width="40%", height="60%">
     <source src="<%= post.video.url %>" type="video/mp4">
     </video>
   <% end %>
   <h3>Comments:</h3>
     <ul>
-        <% post.comments.each do |comment| %>
-          <li> <p><strong><%= comment.user.email %></strong>:</strong> <%= comment.content %></p></li>
-        <% end %>
+      <% post.comments.each do |comment| %>
+        <li><strong><%= comment.user.email %></strong>:</strong> <%= comment.content %></li><br>
+      <% end %>
     </ul>
     <% if post.liking_users.any? %>
       <h3>Liking Users:</h3>
