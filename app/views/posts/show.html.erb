@@ -3,10 +3,15 @@
 </button>
 <div class="post-container">
   <p><%= @post.content %></p>
-  <p>Posted at: <%= @post.created_at.strftime('%B %d, %Y %I:%M %p') %>
+  <p>Posted at: <%=Time.zone.now.in_time_zone("Asia/Kolkata").strftime("%d-%m-%Y %I:%M %p") %>
   <button><%= link_to 'Edit', edit_post_path(@post) %></button></p>
   <% if @post.image.present? %>
     <%= image_tag @post.image.url, width: "100%" %>
+  <% end %>
+  <% if @post.video.present? %>
+    <video controls , width="40%", height="60%">
+    <source src="<%= @post.video.url %>" type="video/mp4">
+    </video>
   <% end %>
 
 
