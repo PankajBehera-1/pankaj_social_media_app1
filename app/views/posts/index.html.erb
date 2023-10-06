@@ -35,7 +35,7 @@
 			font-size: 35px; font-weight: 600; color: white;
 		}
 		li{
-			list-style: none; display: inline-block;
+			list-style: none; display: inline-block ; text-align: right; margin-left: 10px;
 		}
 		li a{
 			color: white; font-size: 18px; font-weight: bold; margin-right: 25px;
@@ -127,21 +127,20 @@
 		<div class="navdiv">
 			<div class="logo"><a href="#">SOCIALBOOK</a> </div>
 			<ul>
+          
           <li>
               <% if user_signed_in? && current_user.avatar.present? %>
-                <p style="color:red;"><%= image_tag current_user.avatar.url, width: "4%"%>User Name :<%= current_user.username %> ../ /.. Email id : <%= current_user.email %></p>
+               <b> <p style="color:red;"><%= image_tag current_user.avatar.url, width: "5%"%>User Name :<%= current_user.username %> </p></b>
               <% end %>
           </li>
-				<li><a href="#">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Contact</a></li>
-				<li>
-        <% if user_signed_in? %>
-          <%= button_to 'Signout', destroy_user_session_path, method: :delete, form: {turbolink: false} %>
-        <% else %>
-          <p>You are not logged in.</p>
-        <% end %>
-        </li>
+          <li style="color:blue;">Email id : <%= current_user.email %></li>
+          <li>
+          <% if user_signed_in? %>
+            <%= button_to 'Signout', destroy_user_session_path, method: :delete, form: {turbolink: false} %>
+          <% else %>
+            <p>You are not logged in.</p>
+          <% end %>
+          </li>
 			</ul>
 		</div>
 	</nav>
